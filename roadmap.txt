@@ -232,4 +232,47 @@ VIRTUAL DOM , React Fiber , Reconciliation
     2. Assign priority to different works
     3. Reuse previous completed work
     4. Abort work if not needed
+
+
+
+---------
+
+03viteproject
+Props 
+
+- Props makes the component reusable. Let's say, we have made a UI, then we'll store that UI in a component to reuse it.
+- src contains component folder that contains all the components.
+- Let's say, we have a profile card, we'll write its HTML, CSS and JS inside the component so that next time we use it, we just have to change the values in the component.
+
+- To use a prop, write props inside a function's parameter. Ex:
+    export default function Card(props) { 
+        return()
+    }
+
+- Initially props is an empty array object
+- To use props, we'll define properties for Card class in App.jsx
+    This passed value will be shown to props
+        Ex:
+            <Card channel = "first_channel"/>      first_channel will be corresponding to this card component
+
+- Props can even have multiple values but only in form of declared variables. 
+    Ex:
+        <Card channel = "first_channel" someobj = {obj}/>
+
+- This is how we pass value from one component to another and recieve those values from props.
+- Now in order to use these values, we'll use .
+    Ex: In function code, we'll use {props.[key]} to use a specific key value pair
+ 
+- For a default value, use pipe (||) 
+    ex: We are using a prop with default value 
+        {btn_txt || Visit Me}
+    - This is helpful when prop value isn't assigned to component
+
+- We can use the obj directly instead of props
+    ex:
+        export default function Card({username, btn_txt = "Visit Me"}) {
+            return()
+        }
+    - This is the same as above, but instead of props, we are using the props values.
+    - Here default value is assigned at top for btn_text
     
