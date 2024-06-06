@@ -1,0 +1,235 @@
+- Makes easy to manage and build front-end
+
+- Why use react: 
+    - Before react, state (variables or storage) was managed by JS and DOM managed UI but there was no sync in these two.
+    - This issue was seen in Facebook and was called PHANTOM MESSAGE PROBLEM (even after seeing the messages, users were getting message notifications).
+    
+- React is a library not a framework
+
+- React makes SPA (Single Page Manipulation)
+
+- Framework vs Library : There is pre defined structure for management in framework ; Libraries are compact in size
+
+- Topics to learn:
+    1. Core of react (State or UI manipulation, JSX) {JSX : Writing HtML inside JS}
+    2. Component reusability
+    3. Props (Properties : key/value)
+    4. How to propogate changes (Hooks - Works as functions)
+
+- Additional: (For Multipage Apps)
+    1. Router (React doesn't have a router) (We have to use React Router DOM package)
+    2. State Management - Uses Redux, Redux toolkit (Same as redux but with more abstraction), zustand, context API
+    3. class based component
+    4. BAAS Apps - Backend as a Service (Ex: Appwrite, Firebase, Superbase)
+
+- Not a complete solution as there is no SEO (Our search engines can't read react effectively because of the generated code structure), browser rendering, no routing
+
+
+
+-------- AFTER THIS ALL
+
+BACKEND
+NextJS - (Allows to backend and frontend in it together)
+
+
+
+--------
+
+npx - Node Package Executor
+npm - Node Package Manager
+
+node -v  =>  Gives version of node
+npx create-react-app  =>  Slower method of creating react apps  =>  No longer supported  =>  Bulky
+
+- Mobile Apps => React Native
+- Web Apps => React DOM
+
+- Main entry point : package.json
+- jest-dom is for testing 
+- web-vitals is for performance tracking
+- scripts is used to run projects
+    1. start runs in development env
+    2. build generate HTML, CSS, JS for browser to understand from react app
+    3. test is for testing purpose
+    4. eject is used to disable JS so that we can use some other lib or framework
+- eslint gives us error if snippets are incorrect
+- browserlist contains all browsers our app will run on 
+
+- start script is used to run react 
+
+npm run [script] command is used
+
+- npm run start  =>  runs react on development server
+
+- After we run npm run build, a build folder is made with all static assets that contains css and jsvascript which is made from react app. This build folder is serverd to users
+
+
+
+--------
+
+WE'LL USE VITE TO MAKE REACT APPS
+
+npm create vite@latest is used to create vite apps
+
+- Doesn't have node modules and hence faster
+- In dependencies, we only have react and react-dom lib
+- Since we don't have node modules, we'll manually install them using npm install or npm i
+- npm run dev  =>  Run vite app
+
+
+
+--------
+
+- For basic react, public contains index.html which is shown to users
+- Main entry point is index.js in src folder
+
+- index.js contains:
+    1. React library which is our core lib
+    2. ReactDOM which is react implementation on web
+        - DOM is just a tree structure ; React makes its own DOM called virtual DOm and then compares it with main DOM and make changes
+        - Virtual DOM will create a root for the whole document in index.html and then assigns it to a variable to render it just like our browser DOM
+        - We render HTML elements here inside render using JSX (Helps to render HTML through JS)
+        - React.StrictMode is used in render to make it easier to find bugs in development phase
+        - The HTML components in render comes from JS functions that returns any HTML snippets
+
+- App.js contains:
+    1. JS function that returns some HTML code 
+    2. we have to export default function_name in order to use it in index.js
+
+Now, we have created functions and used them in index.js BUT index.js is never getting loaded in index.html, so how is it working?
+=> Our packages.json contains "react-scripts" that load all the js scripts index.html
+
+
+
+--------
+
+- For vite, we don't have react-scripts in package.json, so it loads js in index.html using script tag
+- We can add other components to react app by making jsx files in src in vite
+- For rendering in vite, we have to meet 2 conditions:
+    1. Function name's first letter should be capital
+    2. file type should be jsx
+    3. We can only return 1 element in jsx file ; One way to return multiple elements : Encapsulate in a div or return a fragment (return(<> 
+                                                        Code
+                                                        <component/>
+                                                        </>))
+
+
+
+--------
+
+- For basic react, we have following conditions:
+    1. First letter of file should be capital
+    2. component name / function name should have 1st capital letter
+
+- Both js and jsx files works here
+
+
+
+-------- 
+
+- React tries to make trees from element
+- How it sees/make a tree:
+    Let's say we have to make a tree for <a> tag
+        {
+            type : 'a',
+            props : {
+                href : 'https://google.com',
+                target : '_blank'
+            },
+            children : 'Click me to visit google'
+        }
+    - type is name of tag
+    - props means properties and is a object because it can contian multiple properties
+    - children refers to the contents of tag
+
+
+
+---------
+
+- Now, for rendering it to the webpage, react makes an empty DOM element, adds tag type, attributes and children to that DOM element and finally append that child to the maincontainer
+
+- If we'll use the above object in react app, it won't work as were using our own custom render to render that object but react has its own render function that takes different arguments 
+
+- In order to solve this, we can use React.createElement to make react elements ; It has its own syntax
+    React.createElement(
+        'a',
+        {
+            href : "www.google.com",
+            target : "_blank"
+        },
+        "click me to visit google"
+    )
+
+- For using variables in App/functions, use {variable_name} ; this is called evaluated expression (output only)
+- We can use global variables in createElement tree after completing the tree syntax
+    var = "Hello"
+    React.createElement(
+        'a',
+        {
+            href : "www.google.com",        -OUTPUT->       click me to visit googleHello
+            target : "_blank"
+        },
+        "click me to visit google", 
+        var
+    )
+
+
+
+--------
+
+02reactproject
+Hooks
+
+- const addValue = () => {
+    console.log("Value added : "+ counter);
+    counter++;
+  }
+  This code increments the value and prints it in console but doesn't change the UI. 
+  This is where we use hooks.
+  
+- import { hook_name } from 'react' is used for hook
+- { useState } hook is used to change the state or properties of a variable
+    useState hook takes a default value and returns an array of 2 elements : a variable to whch value is assigned and a method that will change the value.
+
+        const [counter, setcounter] = useState(3)
+        Here 3 is default value assigned to counter and this value will be changed by setcounter
+
+
+
+--------
+
+VIRTUAL DOM , React Fiber , Reconciliation
+
+- ReactDOM.createRoot method creates a DOM like structure just like in browser. It then compares the main DOM with this DOM and only update the changes that are updated in UI BUT our browser reload the whole page i.e. remove the DOM and repaints (rewrite) it. This is called page reload.
+    - Here's virtual DOM helps us as we can track the whole DOM (tree like structure) and only update the values changed in DOM
+
+- If the elements are network dependent, i.e. if an element changes its UI during an ongoing chnage, the change that was implemeted first will be implemeted following the second one.
+
+- This is a problem as we are overwriting the first change so in other words, we don't want the first change to be implemented. This issue is solved by React Fiber.
+
+
+- React Fiber is implementation of Virtual DOM react core algorithm. Its goal is to increase the efficiency by only rendering the last change in the stack. Its headline feature is incremental rendering : The ability to split rendering into chunks and spread it out over multiple frames i.e. a tree based rendering similar as Virtual DOM.
+- It can pause, abort or assign priority to updates 
+
+
+- Reconciliation is a react algorithm used to differ on tree with another to determine which parts to be changed (REACT DOM TREE and BROWSER DOM TREE)
+- update is the result of setState from useState hook which eventually results in a re-render
+- Reconciliation is the algo behind what is popularly understood as "virtual DOM"
+
+- Working:
+    - When a react app is rendered, a tree of nodes that describes the app is generated and saved in memory (JSX object tree or state tree), this tree is then flushed in rendering env using .render function.
+    For eg in case of browser app, it's translated into a set of DOM operations. When the tree is updated (via setState), a new tree is generated and is diffed with previous to compute which operations are needed to update the app.
+
+- Reconciliation is also available in React Native
+
+- Key points:   
+    1. In the UI, its not important to update immediatelty as it can degrade user experience.
+    2. Different types of updates have different priorities like animation updates have higher priority than data update and hence we can use a priority queue for these
+    3. Both push based (changes needed are told by programmer) and pull based (React does the changes itself) are used.
+    
+- React Fiber gives us following advantages:
+    1. Pause work and come back to it later
+    2. Assign priority to different works
+    3. Reuse previous completed work
+    4. Abort work if not needed
+    
