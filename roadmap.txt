@@ -283,3 +283,32 @@ Props
 bgcolorchanger
 
 - We can added normal css using 2 {} i.e. style = {{}}
+
+
+
+----------  
+
+passgenerator
+
+- useCallback() hook is used to store a function in memory such that if reruned, we can use the part of function we need
+    ex: useCallback(function, dependencies)
+    - dependencies are values that get changed ; dependencies is an array of states
+
+    const x = useCallback(() => {
+    
+    }, [dependencies])
+
+- Now, we'll use another hook useEffect() to call this above function. It lets us synchronize a component with external system.
+- It takes 2 parameters, a function and a dependencies array
+
+- useRef() is used if we want reference for something
+    ex: const pass_ref = useRef(0)          // 0 is default here
+    - To use this, use a parameter ref with the value assigned to useRef()
+        ex: <input type='text'
+            value={password}
+            placeholder='Password'
+            readOnly
+            ref={pass_ref}/>        
+    
+- To copy something, we'll use window obj here
+    window.navigator.clipboard.writeText(password)
