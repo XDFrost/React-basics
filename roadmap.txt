@@ -275,4 +275,11 @@ Props
         }
     - This is the same as above, but instead of props, we are using the props values.
     - Here default value is assigned at top for btn_text
-    
+
+
+
+----------
+
+bgcolorchanger
+
+- We can added normal css using 2 {} i.e. style = {{}}
