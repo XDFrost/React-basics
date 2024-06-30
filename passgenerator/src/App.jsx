@@ -5,14 +5,13 @@ function App() {
   let [number_allowed, set_num] = useState(false);
   let [characters_allowed, set_char] = useState(false);
   let [password, setpassword] = useState("");
-  const [color, setcolor] = useState("blue")
 
   // useRef()
 
   const pass_ref = useRef(null)
   const copyPassword = useCallback(() => { 
     window.navigator.clipboard.writeText(password)
-    pass_ref.current?.select();           // When password is copied, it will also get selected ; ? means optional beacuse value can be null
+    pass_ref.current?.select;           // When password is copied, it will also get selected ; ? means optional beacuse value can be null
   }, [password])
 
   // useCallback()

@@ -45,7 +45,7 @@ npx create-react-app  =>  Slower method of creating react apps  =>  No longer su
 - Web Apps => React DOM
 
 - Main entry point : package.json
-- jest-dom is for testing 
+- test-dom is for testing 
 - web-vitals is for performance tracking
 - scripts is used to run projects
     1. start runs in development env
@@ -86,7 +86,7 @@ npm create vite@latest is used to create vite apps
 - index.js contains:
     1. React library which is our core lib
     2. ReactDOM which is react implementation on web
-        - DOM is just a tree structure ; React makes its own DOM called virtual DOm and then compares it with main DOM and make changes
+        - DOM is just a tree structure ; React makes its own DOM called virtual DOM and then compares it with main DOM and make changes
         - Virtual DOM will create a root for the whole document in index.html and then assigns it to a variable to render it just like our browser DOM
         - We render HTML elements here inside render using JSX (Helps to render HTML through JS)
         - React.StrictMode is used in render to make it easier to find bugs in development phase
@@ -312,3 +312,11 @@ passgenerator
     
 - To copy something, we'll use window obj here
     window.navigator.clipboard.writeText(password)
+
+
+
+-----------
+
+CurrencyConverter
+
+- Hooks are functions that lets us use different react features from our component ; We can use built-in hooks or combine them to built our own hooks as well.
