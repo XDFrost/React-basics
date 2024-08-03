@@ -299,6 +299,10 @@ passgenerator
     }, [dependencies])
 
 - Now, we'll use another hook useEffect() to call this above function. It lets us synchronize a component with external system.
+- Will run when the component is mounted or updated
+    useEffect(() => {
+        x()
+    }, [dependencies])
 - It takes 2 parameters, a function and a dependencies array
 
 - useRef() is used if we want reference for something
@@ -320,3 +324,130 @@ passgenerator
 CurrencyConverter
 
 - Hooks are functions that lets us use different react features from our component ; We can use built-in hooks or combine them to built our own hooks as well.
+
+
+
+-----------
+
+React Router DOM 
+
+- npm install react-router-dom
+- import { Link, NavLink } from 'react-router-dom' is used to import Link and NavLink
+- Link is used to navigate to a page without refreshing the page  ;  WE ARE NOT USING ANCHOR TAG BECAUSE IT REFRESHES THE WHOLE PAGE 
+- NavLink is used to navigate to a page without refreshing the page but with some ADDITIONAL FEATURES LIKE ACTIVE CLASSNAME
+
+- To use Link, use <Link to = '/'>Home</Link>  ;  to is the path to navigate to
+- To use NavLink, use <NavLink to = '/' activeClassName = 'active'>Home</NavLink>  ;  activeClassName is the class name that will be added to the active link ; Made for navbar 
+- we can use callback inside className of navlink
+- We have access to 2 varibles:
+    1. isActive : true if the link is active
+    2. isPending : true if the link is pending
+
+- Since we are using React router DOM, so have to use <RouterProvider> in main.jsx and provide the router attribute to it.
+- To create a router, we'll use createBrowserRouter() method from react-router-dom ; It contains an array of objects that contains path and component to render.
+- const routes = createBrowserRouter([
+    {
+        path : '/',
+        element : Home
+    }
+  ]
+)
+
+- Now, we want our header and footer to be shown on every page, so we'll use <Outlet> in Layout file to show the header and footer on every page
+- Outlet is used to pass the contents dynamically to the layout file with header and footer being static in all pages 
+
+- return(
+    <>
+        <header/>
+        <Outlet/>
+        <footer/>
+    </>
+)
+
+- Anything inside Outlet will be shown in the layout file with header and footer being static in all pages
+
+- To use this layout, we can pass it in createBrowserRouter() method as element.
+
+- const routes = createBrowserRouter([
+    {
+        path : '/',
+        element : <Layout />
+    }
+  ]
+)
+
+- We can also give children argument to createBrowserRouter().
+- children are the sub-routes of the main route
+
+- const routes = createBrowserRouter([
+    {
+        path : '/',
+        element : <Layout />,
+        children : [
+            {
+                path : '',
+                element : <Home />          // This will home page
+            },
+            {
+                path : 'about',
+                element : <About />         // This will be about page
+            }
+        ]
+    }
+  ]
+)
+
+- Another method of creating router object :
+
+- const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path = '/' element = {<Layout />} >
+            <Route path = '' element = {<Home />} />,
+            <Route path = 'about' element = {<About />} />
+        </Route>
+    )
+)
+
+- To get parameters from URL, we'll first create a route with :parameters at end 
+    ex: <Route path = 'about/:id' element = {<About />} />
+- Data will come on the basis of id
+- This id can be accessed by the element/component mentioned in the route
+- To access this id, use useParams() hook
+    ex: const {id} = useParams()
+        return(
+            <h1>{id}</h1>
+        )
+
+- to get github data, we'll use github API => https://api.github.com/users/username
+- To fetch data, we'll use fetch() method
+    fetch('https://api.github.com/users/username')
+        .then(res => res.json())
+        .then(data => console.log(data))
+    - This will give us the data of the user
+
+- In order to optimize it, we can use loader in route
+- We can make direct API call in route using loader 
+- Using loader, once the mouse is hovered on the link, the data will be fetched and stored to cache ; This is called prefetching and helps in optimization
+- To use loader, we'll make a fetch function and pass it to loader attribute in route
+
+    ex: const fetchGithub = async () => {
+        const res = await fetch('https://api.github.com/users/username')
+        const data = await res.json()
+        return data
+    }
+
+    add loader attribute to route as
+
+    <Route 
+        path = 'github' 
+        element = {<github />} 
+        loader = { fetchGithub } 
+    />
+
+    To use this data, we'll use useLoaderData() hook
+
+    const data = useLoaderData()
+        return(
+            <h1>{data.login}</h1>
+        )
+

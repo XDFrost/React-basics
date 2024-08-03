@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { useId } from 'react';          // React hook for generating unique id that can be passed to accessibility attributes
 
