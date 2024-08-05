@@ -29,7 +29,7 @@
 -------- AFTER THIS ALL
 
 BACKEND
-NextJS - (Allows to backend and frontend in it together)
+NextJS - (Allows to use backend and frontend in it together)
 
 
 
@@ -548,4 +548,10 @@ In the above example, we have following components:
 - In components, to use this data, we'll use useContext() hook
     ex: const data = useContext(AppContext)
     - This will give us the data passed by AppContext.Provider
+
+
+
+------------
+
+06contextAPI_2
 
