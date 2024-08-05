@@ -451,3 +451,101 @@ React Router DOM
             <h1>{data.login}</h1>
         )
 
+
+
+------------
+
+05contextAPI
+
+- Context API is used for state management 
+- Let's understand this with an example:
+
+    |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+    |                                 App                                    | 
+    |                                                                        |                             
+    |    |¯¯¯¯¯¯¯¯¯¯¯|   |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|    |                             
+    |    |   Left    |   |                    Right                     |    |                             
+    |    |           |   |                                              |    |                             
+    |    |           |   |   |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|   |    |                             
+    |    |           |   |   |                 Top                  |   |    |                             
+    |    |           |   |   |                                      |   |    |                             
+    |    |           |   |   |              |¯¯¯¯¯¯¯¯¯|             |   |    |                             
+    |    |           |   |   |              |  card   |             |   |    |                             
+    |    |           |   |   |              |_________|             |   |    |                             
+    |    |           |   |   |                                      |   |    |                             
+    |    |           |   |   |                                      |   |    |                             
+    |    |           |   |   |______________________________________|   |    |                             
+    |    |           |   |                                              |    |                             
+    |    |           |   |                                              |    |                             
+    |    |           |   |   |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|   |    |                             
+    |    |           |   |   |                Bottom                |   |    |                             
+    |    |           |   |   |                                      |   |    |                             
+    |    |           |   |   |                                      |   |    |                             
+    |    |           |   |   |                                      |   |    |                             
+    |    |           |   |   |______________________________________|   |    |                             
+    |    |           |   |                                              |    |  
+    |    |___________|   |______________________________________________|    |  
+    |                                                                        |
+    |________________________________________________________________________|
+
+In the above example, we have following components:
+                                
+                                App
+                                /\    
+                               /  \
+                            Left  Right 
+                                   /\
+                                  /  \
+                                Top  Bottom
+                                 |
+                                Card 
+
+- Now, we want to pass a value from App to Card component. 
+- For this, we first have to pass data from App to Right, then from Right to Bottom and then from Bottom to Card. This is a long process and is called **PROP DRILLING** and is not efficient.
+- To solve this, we'll use Context API.
+- Context API is a way to pass data through the component tree without having to pass props down manually at every level.
+
+- Context API only exists in React.
+
+- we can use alternatives like Redux, Redux-toolkit (RTK), Zustand, Recoil, MobX, etc. for state management as well.
+- To use redux in react, we have to install redux and react-redux packages
+
+- we'll use js file to create context as it is written in pure js
+- Context can be of many types like user context, theme context, etc.
+
+- To create a context, we'll use createContext() method from react
+    ex: const AppContext = React.createContext()
+- This will create a context object that we can use to pass data to the
+
+- To use this context, we'll use Provider and Consumer
+- Provider is used to provide the data to the components
+    
+    ex: <AppContext>
+            <Login/>
+            <Card/>
+                <Data/>
+        </AppContext>
+    - Here, AppContext is acting as a provider to all the components inside it
+    - All components inside AppContext can access the data provided by AppContext
+    - AppContext becomes a provider only when it wraps the components inside it  
+
+- Now, to use this AppContext as a provider, we'll make a jsx file
+- To make a provider, we'll use AppContext.Provider
+    ex: <AppContext.Provider>
+            <Login/>
+            <Card/>
+                <Data/>
+        </AppContext.Provider>
+
+- In this file, we'll wrap all the components/children inside AppContext.Provider with a value attribute
+- value attribute is used to pass the data to the components
+    ex: <AppContext.Provider value = {data}>
+           {children}
+        </AppContext.Provider>
+    - Here, data is the value that will be passed to all the components inside AppContext.Provider
+
+- Now, wherever we want to use this data, we'll wrap that component inside AppContext
+- In components, to use this data, we'll use useContext() hook
+    ex: const data = useContext(AppContext)
+    - This will give us the data passed by AppContext.Provider
+
