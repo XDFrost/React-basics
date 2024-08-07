@@ -553,5 +553,63 @@ In the above example, we have following components:
 
 ------------
 
-06contextAPI_2
+06contextAPI_2 (Theme Switcher) (Another Approach)
+
+- In this approach, we'll use a single file to create a context, its provider and then use it in all the components
+
+- To create a context, we'll use createContext() method from react
+    ex: const ThemeContext = React.createContext()
+    
+    => We'll provide default values in the createContext() method itself rather than in provider 
+    ex: export const ThemeContext = createContext({
+            themeMode : "light",
+            darkTheme : () => {},
+            lightTheme : () => {},
+        });
+
+- Now, we'll make a provider for this context
+- To make a provider, we'll use ThemeContext.Provider
+    ex: export const ThemeProvider = ThemeContext.Provider
+
+- Now, we'll make a function to use this context
+- To use this context, we'll use useContext() hook
+    ex: export default useTheme = () => useContext(ThemeContext)
+
+The whole file will look right this : 
+
+    import React, { createContext, useContext } from 'react'
+
+    export const ThemeContext = createContext({
+        themeMode : "light",
+        darkTheme : () => {},
+        lightTheme : () => {},
+    });
+
+    export const ThemeProvider = ThemeContext.Provider
+
+    export default useTheme = () => useContext(ThemeContext)
+
+- Now, we'll wrap the app with ThemeProvider to use this context
+- Along with ThemeProvider, we'll also pass the values to the provider that we want the component to access 
+    ex: <ThemeProvider value = {{themeMode, darkTheme, lightTheme}}>
+            <App/>
+        </ThemeProvider>
+
+- Here darkTheme and lightTheme are empty functions. In order to use them, we'll define both in the same file as well as for themeMode 
+    ex: const lightTheme = () => {
+            setThemeMode("light")
+        }
+
+        const darkTheme = () => {
+            setThemeMode("dark")
+        }
+
+- To actually change the theme, we'll use classis JS 
+    ex: 
+        useEffect(() => {
+            document.querySelector("html").classList.remove("light", "dark")
+            document.querySelector("html").classList.add(ThemeMode)
+        }, [ThemeMode])
+
+- NOTE : ContextAPI can only be used in components and not in tags like div, h1, etc.
 
