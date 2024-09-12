@@ -18,7 +18,8 @@ function App() {
       <h1 className='bg-green-400 text-black p-4 rounded-xl mb-4' >Tailwind test</h1>
 
       {/* <Card channel = "first_channel" someobj = {obj} arr = {newArr}/> */}
-      <Card username = "pratham" btn_txt = "Text_1"/>
+      {/* <Card username = "pratham" btn_txt = "Text_1"/> */}
+      <Card username = "User_2"/>
       <Card username = "User_2"/>
       {/* <div className="relative h-[400px] w-[300px] rounded-md">
         <img

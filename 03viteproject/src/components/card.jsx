@@ -4,6 +4,8 @@ import React from 'react'
 export default function Card({username, btn_txt = "Visit Me"}) {
   // console.log(props);
   // console.log(props.username);
+  console.log(username);
+  
   return (
     <div className="relative h-[400px] w-[300px] rounded-md">
         <img

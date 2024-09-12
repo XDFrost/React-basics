@@ -35,11 +35,13 @@ NextJS - (Allows to use backend and frontend in it together)
 
 --------
 
-npx - Node Package Executor
-npm - Node Package Manager
+npx - Node Package Executor  ;  Used to run packages without installing them
+npm - Node Package Manager  ;  Used to install packages
 
 node -v  =>  Gives version of node
-npx create-react-app  =>  Slower method of creating react apps  =>  No longer supported  =>  Bulky
+
+npx install create-react-app  =>  Slower method of creating react apps  =>  No longer supported  =>  Bulky
+npm install -g create-react-app  =>  Global installation of create-react-app  ;  -g is flag for global installation  
 
 - Mobile Apps => React Native
 - Web Apps => React DOM
@@ -63,6 +65,9 @@ npm run [script] command is used
 
 - After we run npm run build, a build folder is made with all static assets that contains css and jsvascript which is made from react app. This build folder is serverd to users
 
+- vite: Bundler for modern JS projects. It is faster than react-scripts and is used to make react apps
+
+- node_modules contains all the package files that are installed in the project 
 
 
 --------
@@ -212,9 +217,10 @@ VIRTUAL DOM , React Fiber , Reconciliation
 - It can pause, abort or assign priority to updates 
 
 
-- Reconciliation is a react algorithm used to differ on tree with another to determine which parts to be changed (REACT DOM TREE and BROWSER DOM TREE)
+- Diffing algo is a react algorithm used to differ on tree with another to determine which parts to be changed (REACT DOM TREE and BROWSER DOM TREE)
 - update is the result of setState from useState hook which eventually results in a re-render
-- Reconciliation is the algo behind what is popularly understood as "virtual DOM"
+- Diffing algo is the algo behind what is popularly understood as "virtual DOM"
+- This process is called RECONCILIATION 
 
 - Working:
     - When a react app is rendered, a tree of nodes that describes the app is generated and saved in memory (JSX object tree or state tree), this tree is then flushed in rendering env using .render function.
@@ -275,6 +281,8 @@ Props
         }
     - This is the same as above, but instead of props, we are using the props values.
     - Here default value is assigned at top for btn_text
+
+- If we log props, it is getting printed twice because of react's strict mode. It runs the code twice to find the bugs in the code.
 
 
 
@@ -458,6 +466,7 @@ React Router DOM
 05contextAPI
 
 - Context API is used for state management 
+- Context API is not made for large scale apps but rather for small scale apps
 - Let's understand this with an example:
 
     |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
@@ -613,3 +622,303 @@ The whole file will look right this :
 
 - NOTE : ContextAPI can only be used in components and not in tags like div, h1, etc.
 
+
+
+-------------
+
+ClassNotes
+
+- <noscript> tag is used to show a message if the browser doesn't support JS
+
+- robots.txt in create-react-app is used to tell search engines which pages to crawl and which not to i.e. it is used to block search engines from crawling a page
+
+- ReactDOM is used because we are using react on web, if we were using react on mobile, we would have used ReactNative
+    - ReactDOM is used to render the react app on web
+    - React.StrictMode is used to find bugs in development phase by highlighting them in console
+
+- JSX file is a file that contains HTML code inside JS
+- Our browser can't read JSX, so we have to convert it into JS using babel (babel is a JS transpiler that converts JSX into JS)
+- Babel makes polyfills for older browsers to understand the new JS code
+
+- Components are the building blocks of react app
+- Components are reusable and can be used multiple times in the app
+- Components can be of 2 types:
+    1. Functional components
+    2. Class components
+
+    - Functional components are the components that are made using functions
+    - Class components are the components that are made using classes
+
+- We tend to use functional components more as they are easier to write and understand.
+- Class based components are not used much now as they are difficult to understand and write. 
+
+- React commands:
+    1. npx create-react-app app_name  =>  To create a react app
+    2. npm start  =>  To run the react app
+    3. npm run build  =>  To build the react app
+    4. npm run eject  =>  To eject the react app (to remove react scripts)
+    5. npm run test  =>  To test the react app
+
+- empty fragment <> </> is used to return multiple elements in a component
+
+- export default is used to export a function or a class so that it can be used in other files ; If we use export without default then we have to import it using curly braces
+- Using curly braces, we can import multiple functions or classes from a file
+
+- export types:
+    1. Named export  =>  export { function_1, function_2 }  ;  Used to export multiple functions
+    2. Default export  =>  export default function_name  ;  Used to export a single function
+
+- import * as name from 'file'  =>  Used to import all the functions from a file  ;  Default component can't be imported using this methodg
+
+- {} are JS expressions and are used to evaluate the expression inside them
+- We use them to write JS code inside HTML 
+
+- Functional components returns JSX code
+- Class components returns render() method that contains JSX code
+
+    Ex of class based component:
+
+        export default class App extends React.Component {
+            render() {
+                return(
+                    <h1>Hello World</h1>
+                )
+            }
+        }
+
+- In class based components, we have to use this keyword to access the state or props
+- render() method is instance method and is used to render the component
+- In class based components, we have to use constructor() method to initialize the state
+- In class based components, we have to use super() method to call the parent class constructor
+
+- Component lifecycle methods: (ONLY IN CLASS BASED COMPONENTS)
+    1. constructor()  =>  Used to initialize the state
+    2. render()  =>  Used to render the component
+    3. componentDidMount()  =>  Used to call the API or fetch the data  ;  Called after the component is mounted or rendered
+    4. componentDidUpdate()  =>  Used to update the component
+    5. componentWillUnmount()  =>  Used to remove the component
+
+- Hooks were created to manage the state in functional components. We can't use lifecycle methods in functional components, to counter this, we use hooks
+ 
+- Error: Too many re-renders 
+
+    ex: 1. const [counter, setCounter] = useState(0)
+           setCounter(counter + 1)
+        
+        2. const [counter, setCounter] = useState(0)
+
+           function addValue(num) {
+               setCounter(num)
+           }
+        
+           <button onClick = {addValue(25)}>Add</button>
+        
+    - This will cause an infinite loop as the value of counter will be updated every time the component is rendered
+    - To solve this, we'll use useEffect() hook
+    - useEffect() hook is used to run the code only once when the component is rendered
+
+    - In second example, we can use arrow function to solve this issue
+        ex: <button onClick = {() => addValue(25)}>Add</button>
+    - This will call the function only when the button is clicked
+
+- Conditional rendering in react:
+    1. if-else
+    2. ternary operator
+    3. && operator
+    4. switch case
+
+    ex: 
+        1. if-else
+            if(condition) {
+                return(
+                    <h1>Hello World</h1>
+                )
+            } else {
+                return(
+                    <h1>Bye World</h1>
+                )
+            }
+
+        2. ternary operator
+            return(
+                condition ? <h1>Hello World</h1> : <h1>Bye World</h1>
+            )
+
+        3. && operator
+            return(
+                condition && <h1>Hello World</h1>
+            )
+
+        4. switch case
+            switch(condition) {
+                case 1:
+                    return(
+                        <h1>Hello World</h1>
+                    )
+                case 2:
+                    return(
+                        <h1>Bye World</h1>
+                    )
+            }
+
+- React uses strict mode and runs the code twice so that dev can check if the component is pure (same data is passed int the component) or not (Different data is passed int the component)
+
+- React strict mode is what?
+    - React.StrictMode is a tool for highlighting potential problems in an application. Like Fragment, StrictMode does not render any visible UI. It activates additional checks and warnings for its descendants.
+
+- Memoization in JS:
+    - Memoization is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
+    - ex:
+        
+            function getFunc() {
+                let obj = {};
+                return function(password) {
+                    if(password in obj) {
+                        return obj[password]
+                    } 
+                    console.log("HASHING")
+                    const hashed = crypto.randomUUID(password)
+                    obj[password] = hashed;
+                    return hashed;
+                }
+            }
+
+- useMemo() hook is used to store the value of a function in memory between re-renders 
+    - It takes 2 arguments, a function and an array of dependencies
+
+- For navigation in react, we use react-router-dom package
+- useNavigate() hook is used to navigate to a page in react
+- To use this hook, we have to import it from react-router-dom
+    ex: import { useNavigate } from 'react-router-dom'
+
+- To use this hook, we have to call it inside a function
+    ex: const navigate = useNavigate()
+        navigate('/')
+    - This will navigate to the home page
+
+    ex with button:
+        <button onClick = {() => navigate('/')}>Home</button>
+
+- For sending data with it
+    ex: navigate('/about', { state : { name : 'John' }})
+    - This will send the data to the about page
+    
+
+-------------
+
+07contextAPI_LocalStorage 
+
+-------------
+
+08Redux
+
+- To use redux in react, we need react-redux 
+- Came after flux architecture (flux - State management architecture from facebook)
+- Problem with flux - Data flow was not good (Data flow : A structured way of managing data in an app) 
+- Independent of react and can be used with any other library
+- There's a difference between redux and react-redux
+    - Redux is a state management library
+    - React-redux is a library that lets us use redux in react
+ 
+- we have to define everything in redux, to avoid this we use redux toolkit 
+- Redux toolkit is a package that contains all the redux packages
+- It came with batteries included (Internally managaes the store, reducers, actions, etc..)
+- It is a wrapper around redux that makes it easier to use
+
+- Concepts in redux:
+    1. store =>  A place where all the data is stored ; Acts as global variable      // Comes from core redux
+    2. reducers => A function that takes the current state and an action and returns the new state ; MANAGES FUNCTIONALITY
+    3. useSelector => A hook that lets us select the data from the store
+    4. useDispatch => A hook that lets us dispatch/send some data to the store
+    5. actions => An object that contains the type of action and the payload
+    6. action creators => A function that creates an action
+    7. middleware => A function that runs between the action and the reducer
+    8. thunk => A middleware that lets us write async code in redux
+
+- For installation:
+    1. npm install @reduxjs/toolkit
+    2. npm install react-redux
+
+- The store is made in app folder inside store.js file
+- To create a store, we'll use configureStore() method from redux toolkit
+    ex: const store = configureStore({
+            
+        })
+- configureStore takes an object as an argument
+
+- Next step is creation of reducers ; These reducers are called slices in redux toolkit
+- Initially store will contain an initial state (It can be an array or an object as it may contain multiple things)
+- Now we'll create a slice (A bigger version of reducer/functionality)
+- To create a slice, we'll use createSlice() method from redux toolkit
+    ex: const todoSlice = createSlice({
+            
+        })
+- A slice has following:
+    1. name : Will be shown in RTK
+    2. initialState : Initial state of the slice
+    3. reducers : 
+        Contains Following:
+            1. Property
+            2. Function 
+            ex: addTodo : (state, action) => {
+                    state.push(action.payload)
+                }       
+
+                addTodo is the property and (state, action) => {} is the function
+    
+- We always define the reducers in the slice.
+- It has following 2 parameters:
+    1. state : Current state of the slice
+    2. action : The action that is dispatched ; Provides values to the reducer
+
+    Ex: const todoSlice = createSlice({
+        name : 'todos',
+        initialState : [],
+        reducers : {
+            addTodo : (state, action) => {
+                state.push(action.payload)          // action.payload is the value that is passed to the reducer
+            },
+            removeTodo : (state, action) => {
+                const {id} = action.payload
+                state.todos = state.todos.filter((todo) => todo.id !== id)
+            }
+        }
+    })
+
+- We'll individually export the reducers from the slice to access their functionality
+- To export the reducers, we'll use the export keyword
+    ex: export const { addTodo, removeTodo } = todoSlice.actions
+- We'll also export the reducer list to use it in the store
+    ex: export default todoSlice.reducer
+
+- Now, we'll use this slice in the store
+ex: const store = configureStore({
+        reducer : {
+            todos : todoSlice.reducer
+        }
+    })
+
+- Now we'll need a dispatch to dispatch the action
+- To use dispatch, we'll use useDispatch() hook from react-redux
+    ex: const dispatch = useDispatch()
+- To use this dispatch, we'll call it inside a function
+    ex: dispatch(addTodo(input))
+- It uses the reducers to update the state
+
+- In order to access the data (from store), we'll use useSelector() hook from react-redux
+    ex: const todos = useSelector((state) => state.todos)
+    - This method gives the access to the state of the store ; We can access the value by name of the slice
+    ex:
+        const todos = useSelector((state) => state.todos)
+        return(
+            <ul>
+                {todos.map((todo) => (
+                    <li key = {todo.id}>{todo.title}</li>
+                ))}
+            </ul>
+        )
+
+- To use the store, we have to wrap the app with Provider from react-redux
+    ex: <Provider store = {store}>
+            <App/>
+        </Provider>
